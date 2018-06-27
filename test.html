@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+<style type="text/css">
+
+*{
+	margin:0;
+	padding:0;
+}
+
+body, html {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-family: Helvetica;
+	font-size: 16px;
+	line-height: 22px;
+}
+
+#box{
+	
+	width:900px;
+	border:1px solid red;
+	margin:0 auto;
+	width:900px;
+	margin:0 auto;
+	padding:20px;
+}
+
+.item{
+	width:500px;
+	background-color:#d4e3fc;
+	margin:0 auto;
+	text-align: center;
+	padding-bottom:10px;
+	overflow:hidden;
+	display:none;
+	box-shadow: 0 1px 6px rgba(0, 0, 0, 0.34);
+	moz-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.34);
+	-webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.34); 
+}
+
+h3{
+	padding:10px;
+	text-align: center;
+	background-color: #34b5fe;
+	color:white;
+	font-size: 24px;
+	line-height: 30px;
+	font-weight: normal;
+}
+
+.qwestion{
+	margin:20px 0;
+	text-indent: 35px;
+	font-weight:400;
+}
+
+#descriptToggle{
+	color:#34b5fe;
+	font-size: 14px;
+}
+
+ #descriptText{
+ 	display:block;
+ 	text-indent: 35px;
+ 	margin-bottom: 20px;
+ 	text-align: justify;
+ }
+
+  #descriptText.close{
+  	display:none;
+  }
+
+.descriptTextNone{
+	display:none;
+}
+
+button{
+	margin: 20px 60% 30px 40%;
+    clear: both;
+    width: 200px;
+    height: 40px;
+    background-color: #34b5fe;
+    color: #f1f614;
+    font-size: 15px;
+    font-weight: bold;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+button:hover{
+	-webkit-transform: scale(1.05);
+	ms-transform: scale(1.05);
+ 	transform: scale(1.05);
+	border: 1px solid #930412;
+}
+
+input {
+	float:left;
+	margin-right:10px;
+	width:20px;
+	height:20px;
+}
+
+.answer{
+	float:left;
+}
+
+#question{
+	padding-top: 0px;
+	font-size: 20px;
+}
+
+.questionName{
+	width:500px;
+	height:120px;
+	display:inline-block;
+	vertical-align: middle;
+	background-color: #34b5fe;
+}
+
+.questionName:before{
+	height:;
+	display:inline-block;
+	vertical-align: middle;
+	content:"";
+
+}
+
+.bl_answer{
+	padding: 30px;
+    font-size: 20px;
+    color: #34b5fe;
+}
+
+.two{
+	clear:both;
+
+}
+
+.result{
+	display:none;
+}
+
+ label{
+ 	float:left;
+ }
+
+
+input{
+	width:50px;
+}
+
+.test_block{
+	background: url(./img/smehariki_1.jpg) no-repeat 0% 0%, 
+				url(./img/smehariki_2.jpg) no-repeat 100% 0% , 
+				url(./img/smehariki_3.jpg) no-repeat 15% 100%,
+				url(./img/smehariki_4.jpg) no-repeat 85% 98%; 
+}
+
+.textLine{
+	
+}
+
+.textNorm{
+	color:#024a73;
+}
+
+canvas{
+	clear:both;
+	margin-left: 16%;
+}
+
+.circleResult{
+	width:15px;
+	height:15px;
+	background-color: red;
+	border:1px solid #930412;
+	border-radius: 10px;
+	float:left;
+	margin-left: 35px;
+}
+
+.resultColor, #resultText{
+	font-weight: bold;
+	color:#34b5fe;
+}
+
+.resultTextCicle{
+	text-indent: 35px;
+	clear: both;
+}
+
+.resultStartText{
+	margin:10px 0;
+	text-indent: 35px;
+	float: left;
+}
+
+#warning{
+	margin-left: 40%;
+    color: red;
+}
+
+.questionNum{
+	color:#34b5fe;
+}
+
+
+#btn_print{
+	margin:20px 40%;
+}
+
+.img_res{
+	display: block;
+    width: 30%;
+    margin: 0 auto;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.img_res:hover{
+	-webkit-transform: scale(2.0);
+	ms-transform: scale(2.0);
+ 	transform: scale(2.0);
+	border: 1px solid #34b5fe;
+}
+
+
+
+</style>
+</head>
+
+
+<body>
+
+	<div id ="box"> 
+
+		<h3>Психологичeский тест Айзенка</h3>
+		<p class="qwestion" id ="descriptName">Условие и описание: <span id='descriptToggle'>скрыть</span></p>
+			<div id ="descriptText"><p>Вам предлагается ответить на вопросы, касающиеся Вашего обычного способа поведения. Постарайтесь представить типичные ситуации и дать первый «естественный» ответ, который придет Вам в голову. Отвечайте быстро и точно. Помните, что нет «хороших» или «плохих» ответов. Выбор ограничен всего двумя ответами: Да и Нет, выбирайте тот, который ближе. </p>
+			<p> По окончанию Вы узнаете к какому типу темперамента (<span class="textLine"><span class="textNorm">сангвиник</span></span>, <span class="textLine"><span class="textNorm">холерик</span></span>, <span class="textLine"><span class="textNorm">меланхолик</span></span>, <span class="textLine"><span class="textNorm">флегматик</span></span>) относитесь, а также <span class="textLine"><span class="textNorm">Экстраверт </span></span> Вы или <span class="textLine"><span class="textNorm">Интроверт</span></span>. </p>
+			<p>Тест состоит из 57 вопросов.</p>
+		</div>
+		<div class = "result" id="result">
+			<h3>Результат прохождения психологичeского теста Айзенка</h3>
+			<div class="resultStartText"><p>По типу темперамента Вы: <span id ="resultText"> будет текст</span>, как и: <span id ="resultText_2"> будет текст <img class="img_res" id="img_res" src="./img/res_1.jpg"></span></p></div>
+			<p class ="resultTextCicle">Что бы оценить степень выраженности присущих Вам черт характера и интерпретировать полученный результат <span class= "resultColor">обратитесь к "кругу Айзенка":</span> </p>
+			<div class = "circleResult"></div>
+			<p> - отмечен ваш результат.</p>
+					
+			<canvas id ="myCanvas" width='600' height='600'>Ваш браузер не поддерживает canvas</canvas>
+			<button id ="btn_print" >Распечатать результат</button>
+		
+		</div>
+		
+		<div class="test_block">
+			<div class ="item" id='block'>
+				<p class="questionNum">Вопрос <span id="qNum">1</span> из 57</p>
+				<div class="questionName">
+					<h3 id = 'question'>Как вы себе представляете та-та-ат </h3>
+				</div>
+				<div class='bl_answer one'>
+					<label><input type = 'radio' name="vvv" id = "answer_1"> Да </input></label>
+				</div>
+				<div class='bl_answer two'>
+					<label><input type = 'radio' name="vvv" id = "answer_2"> Нет </input></label>
+				</div>		
+			</div>
+			<span id="warning"></span>
+			<button id ="btn" >Пройти тест</button>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+
+var questions_arr = [
+	['Нравится ли Вам оживление и суета вокруг Вас?', 'да', 'нет',0,2],
+	['Часто ли у Вас бывало беспокойное чувство, что Вам чего-то хочется, а Вы не знаете чего?', 'да', 'нет',0,3],
+	['Вы из тех людей, которые не лезут за словом в карман?', 'да', 'нет',0,2],
+	['Чувствуете ли Вы себя иногда счастливым, а иногда печальным без какой-либо причины?', 'да', 'нет',0,3],
+	['Держитесь ли Вы обычно "в тени" на вечеринках и в компании?', 'да', 'нет',1,2],
+	['Всегда ли в детстве Вы делали немедленно и без ропота то, что Вам приказывали?', 'да', 'нет',0,1],
+	['Бывает ли, что Вы "дуетесь" на кого-нибудь?', 'да', 'нет',0,3],
+	['Предпочитаете ли Вы прекратить ссору молчанием?', 'да', 'нет',0,2],
+	['Умный ли Вы человек?', 'да', 'нет',0,3],
+	['Любите ли Вы быть среди людей?', 'да', 'нет',0,2],
+	['Часто ли Вы теряли сон из-за Ваших тревог?', 'да', 'нет',0,3],
+	['Верите ли Вы в какие-нибудь приметы?', 'да', 'нет',1,1],
+	['Могли бы Вы назвать себя беспечным?', 'да', 'нет',0,2],
+	['Часто ли Вы решаетесь на что-нибудь, когда уже слишком поздно?', 'да', 'нет',0,3],
+	['Любите ли Вы работать в одиночестве?', 'да', 'нет',1,2],
+	['Часто ли Вы чувствуете себя равнодушным и усталым без серьезной причины?', 'да', 'нет',0,3],
+	['Подвижный ли Вы человек?', 'да', 'нет',0,2],
+	['Смеетесь ли Вы иногда при нескромных шутках?', 'да', 'нет',1,1],
+	['Часто ли Вам что-либо так надоедает, что Вы чувствуете себя "сытым по горло"?', 'да', 'нет',0,3],
+	['Вы чувствуете себя неловко в новой нарядной одежде?', 'да', 'нет',1,2],
+	['Часто ли Ваши мысли отвлекаются, когда Вы пытаетесь сосредоточить на чем-то внимание?', 'да', 'нет',0,3],
+	['Можете ли Вы быстро переложить Ваши мысли в слова?', 'да', 'нет',0,2],
+	['Часто ли Вы бываете в рассеянном забытии?', 'да', 'нет',0,3],
+	['Полностью ли Вы от свободны от всяких предрассудков?', 'да', 'нет',0,1],
+	['Любите ли Вы каверзные шутки?', 'да', 'нет',0,2],
+	['Часто ли Вы думаете о Вашем прошлом?', 'да', 'нет',0,3],
+	['Вы очень любите вкусную пищу?', 'да', 'нет',0,1],
+	['Когда Вы чем-то раздражены, нуждаетесь ли в понимающем человеке, чтобы выговориться?', 'да', 'нет',0,1],
+	['Если Вам по серьезной причине будут нужны деньги, согласитеcь ли Вы лучше продать что-нибудь из своих вещей, чем занять деньги?', 'да', 'нет',1,2],
+	['Прихвастываете ли Вы иногда?', 'да', 'нет',1,1],
+	['Чувствительны ли Вы иногда к некоторым вещам?', 'да', 'нет',0,3],
+	['Предпочли бы Вы остаться в одиночестве дома, чем пойти на скучную вечеринку?', 'да', 'нет',1,2],
+	['Бываете ли Вы так возбуждены, что не можете усидеть на месте?', 'да', 'нет',0,3],
+	['Любите ли Вы планировать действия детально и заранее?', 'да', 'нет',1,2],
+	['Бывает ли у Вас головокружение?', 'да', 'нет',0,3],
+	['Всегда ли Вы отвечаете на частные письма сразу после прочтения?', 'да', 'нет',0,1],
+	['Делаете ли Вы обычно вещи лучше, обдумывая их в одиночку, чем обсуждая с другими?', 'да', 'нет',1,2],
+	['Случается ли у Вас отдышка, хотя Вы не делали никакой тяжелой работы?', 'да', 'нет',0,1],
+	['Являетесь ли Вы беспечным человеком, которого не волнует вопрос "сделать как нужно"?', 'да', 'нет',0,2],
+	['Подводят ли Вас нервы?', 'да', 'нет',0,3],
+	['Нравится ли Вам больше планировать, чем делать?', 'да', 'нет',1,2],
+	['Откладываете ли Вы на завтра то, что должны сделать сегодня?', 'да', 'нет',1,1],
+	['Нервничаете ли Вы, когда находитесь в лифте или тоннеле?', 'да', 'нет',0,3],
+	['Делаете ли Вы обычно первые шаги к сближению, когда с кем-то знакомитесь?', 'да', 'нет',0,2],
+	['Бывают ли у Вас сильные головные боли?', 'да', 'нет',0,3],
+	['Считаете ли Вы обычно, что все само собой уладится и придет в норму?', 'да', 'нет',0,2],
+	['Трудно ли Вам заснуть ночью?', 'да', 'нет',0,3],
+	['Говорили ли Вы иногда неправду?', 'да', 'нет',1,1],
+	['Говорили ли Вы иногда первое, что придет в голову?', 'да', 'нет',0,1],
+	['Долго ли Вы переживаете после случившегося конфуза?', 'да', 'нет',0,3],
+	['Замкнуты ли Вы обычно со всеми, кроме близких людей?', 'да', 'нет',1,2],
+	['Части ли с Вами случаются неприятности из-за того, что Вы поступаете не подумав?', 'да', 'нет',0,3],
+	['Любите ли Вы шутить и рассказывать забавные истории друзьям?', 'да', 'нет',0,2],
+	['Предпочитаете ли Вы больше выигрывать, чем проигрывать?', 'да', 'нет',1,1],
+	['Застенчивы ли Вы в присутствии старших?', 'да', 'нет',0,3],
+	['Считаете ли Вы, что стоит рискнуть, даже если шансы не в вашу пользу?', 'да', 'нет',0,2],
+	['Часто ли у Вас "сосет под ложечкой" перед важным делом?', 'да', 'нет',0,3],
+
+]
+
+var result_arr = [
+	' не относитесь к какому-то определенному типу.',
+	' холерик',
+	' сангвиник',
+	' меланхолик',
+	' флегматик'
+]
+
+var result_arr_2 = [
+	['многие другие.'],
+	['<img class="img_res" src="./img/res_1.jpg">'],
+	['<img class="img_res" src="./img/res_2.jpg">'],
+	['<img class="img_res" src="./img/res_3.jpg">'],
+	['<img class="img_res" src="./img/res_4.jpg">']
+]
+
+var btn = document.getElementById('btn');
+var btn_print = document.getElementById('btn_print');
+var warning = document.getElementById('warning');
+var vubor = document.querySelectorAll('div input');
+var block_questions = document.getElementById('block');
+var question = document.getElementById('question');
+var answer_1 = document.getElementById('answer_1');
+var answer_2 = document.getElementById('answer_2');
+var result = document.getElementById('result');
+var resultText = document.getElementById('resultText');
+var resultText_2 = document.getElementById('resultText_2');
+var descriptToggle = document.getElementById('descriptToggle');
+var descriptText = document.getElementById('descriptText');
+var qNum = document.getElementById('qNum');  
+/*var img_res = document.getElementById('img_res');
+console.log(img_res);
+console.log(img_res.src);
+img_res.src='img/res_4.jpg';
+console.log(img_res.src);*/
+
+
+var plus = 0; //количество набранных баллов
+var cur_answer = 0; //номер вопроса
+var count_answer = questions_arr.length; //общее количество вопросов
+var num = 0; //счетчик click on button
+console.log(num);
+btn.onclick = check;
+// var start;
+
+var res_lozh = 0;
+var res_versiya = 0;
+var res_nevro = 0;
+var res;
+
+function resPrint() {
+    window.print();
+}
+btn_print.onclick = resPrint;
+
+
+//рисование канвас 
+function canvasResult(){
+	var canvas = document.getElementById('myCanvas');
+	ctx = canvas.getContext('2d');
+	pic = new Image();
+	pic.src = './img/circle_1.jpg';
+	pic.onload = function drawFrame(){
+		ctx.drawImage(pic,0,0);
+		ctx.beginPath();
+		var pointX = 24.6*res_versiya;
+		var pointY =canvas.height - (24.6*res_nevro);
+		var radius = 8;
+		ctx.arc(pointX,pointY,radius,Math.PI*2,false);
+		ctx.closePath();
+		ctx.fillStyle='red';
+		ctx.fill();
+		ctx.lineWidth = 1;
+		ctx.strokeStyle = '#930412';
+		ctx.stroke();	
+	}
+}
+
+//скрытие и показ блока "условия и описание"
+descriptToggle.onclick = function(){
+	descriptText.classList.toggle('close');
+	if (descriptText.classList.contains('close')){
+		descriptToggle.textContent = 'показать';
+	}
+	else{
+		descriptToggle.textContent = 'скрыть';
+	}
+}
+
+
+//снятие нажатия на кнопку (input radio)
+function uncheckRadio(){
+	for(i=0;i<vubor.length; i++){
+		vubor[i].checked = false;
+	}
+}
+
+//фиксация результатов, с разделение их по группам (ложь, экстраверсия-интроверсия, невротизм-стабильность)
+function vuborResult(){
+	if(questions_arr[cur_answer][4] == 1){
+		res_lozh++;
+	}
+	if(questions_arr[cur_answer][4] == 2){
+		res_versiya++;
+	}
+	if(questions_arr[cur_answer][4] == 3){
+		res_nevro++;
+	}
+}
+
+//обработка групп результатов и формирование итогового результата
+function pokazResult(){
+	var res = result_arr[0];
+	if (res_versiya>12){
+		if(res_nevro>12){
+			res = result_arr[1];
+			res_2 = result_arr_2[1];
+		}
+		else{
+			res = result_arr[2];
+			res_2 = result_arr_2[2];
+		}
+	}
+	else{
+		if(res_nevro>12){
+			res = result_arr[3];
+			res_2 = result_arr_2[3];
+		}
+		else{
+			res = result_arr[4];
+			res_2 = result_arr_2[4];
+		}
+	}
+	resultText.innerHTML = res;
+	resultText_2.innerHTML = res_2;
+
+	console.log(res_versiya);
+	console.log(res_nevro);
+	canvasResult();
+} 
+
+function check(e){
+	console.log(num);
+	// открываем блок с вопросом и ответами, при нажатии на кнопку "пройти тест"
+	if (num == 0){
+		block_questions.style.display ='block';
+		question.innerHTML = questions_arr[cur_answer][0];
+		// answer_1.innerHTML = questions_arr[cur_answer][1];
+		// answer_2.innerHTML = questions_arr[cur_answer][2];
+		console.log(answer_1);
+
+		btn.textContent = 'Следующий вопрос';
+		
+		num++;
+		console.log(num);
+	}
+
+	else{
+		if(cur_answer < count_answer-1){
+			
+				if(!vubor[0].checked && !vubor[1].checked){
+					warning.textContent = 'Выберите вариант ответа!';
+				}
+				else{
+					warning.textContent = '';
+					
+					for (i=0; i<vubor.length; i++){
+						console.log(i);
+						console.log(questions_arr[cur_answer][3]);
+						console.log(vubor[i].checked);
+
+						vubor.checked = vubor[i].checked;
+					}
+
+					if(vubor.checked == questions_arr[cur_answer][3]){
+							// plus++;
+							vuborResult();
+							console.log('ложь '+ res_lozh);
+							console.log('экстроверсия '+res_versiya);
+							console.log('нервозность '+res_nevro);
+					}
+					console.log('result'+plus);
+					console.log('номер вопроса '+cur_answer);
+					cur_answer++;
+
+					num = cur_answer;
+					console.log('click_num'+num);
+					qNum.innerHTML =1+num;	
+					
+				}
+			question.innerHTML = questions_arr[cur_answer][0];
+			// answer_1.innerHTML = questions_arr[cur_answer][1];
+			// answer_2.innerHTML = questions_arr[cur_answer][2];
+			uncheckRadio();
+		}
+		else{
+			block_questions.style.display ='none';
+			result.style.display = 'block';
+			pokazResult();
+			
+			btn.textContent = 'Пройти еще раз';
+			num = 0;
+			console.log(cur_answer);
+			cur_answer = 0;
+			uncheckRadio();
+		}
+	} 
+
+}
+
+</script>
+</body>
+</html>
